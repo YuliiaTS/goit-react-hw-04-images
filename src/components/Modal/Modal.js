@@ -1,40 +1,76 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import s from './Modal.module.css';
 import PropTypes from 'prop-types';
 
-export default class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeyEscape);
-  }
+export default function Modal({imageSelected, onClose}) {
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyEscape);
-  }
+  const { largeImageURL, tags } = imageSelected;
 
-  onKeyEscape = e => {
-    if (e.code === 'Escape') {
-      this.props.onClose();
-    }
-  };
-
-  onOverlayClick = e => {
+  const onOverlayClick = e => {
     if (e.target === e.currentTarget) {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  render() {
-    const { largeImageURL, tags } = this.props.imageSelected;
+  useEffect(() => {
+    const onKeyEscape = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', onKeyEscape);
+   
+    return () => {
+      window.removeEventListener('keydown', onKeyEscape);
+    };
+    }, [onClose]
+  );
 
-    return (
-      <div className={s.Overlay} onClick={this.onOverlayClick}>
-        <div className={s.Modal}>
-          <img src={largeImageURL} alt={tags} />
-        </div>
+  return (
+    <div className={s.Overlay} onClick={onOverlayClick}>
+      <div className={s.Modal}>
+        <img src={largeImageURL} alt={tags} />
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+
+
+// export class OldModal extends Component {
+//   componentDidMount() {
+//     window.addEventListener('keydown', this.onKeyEscape);
+//   }
+
+//   componentWillUnmount() {
+//     window.removeEventListener('keydown', this.onKeyEscape);
+//   }
+
+//   onKeyEscape = e => {
+//     if (e.code === 'Escape') {
+//       this.props.onClose();
+//     }
+//   };
+
+//   onOverlayClick = e => {
+//     if (e.target === e.currentTarget) {
+//       this.props.onClose();
+//     }
+//   };
+
+//   render() {
+//     const { largeImageURL, tags } = this.props.imageSelected;
+
+//     return (
+//       <div className={s.Overlay} onClick={this.onOverlayClick}>
+//         <div className={s.Modal}>
+//           <img src={largeImageURL} alt={tags} />
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   imageSelected: PropTypes.shape({
