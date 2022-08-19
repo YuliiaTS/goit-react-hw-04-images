@@ -35,42 +35,6 @@ export default function Modal({imageSelected, onClose}) {
   );
 }
 
-
-
-// export class OldModal extends Component {
-//   componentDidMount() {
-//     window.addEventListener('keydown', this.onKeyEscape);
-//   }
-
-//   componentWillUnmount() {
-//     window.removeEventListener('keydown', this.onKeyEscape);
-//   }
-
-//   onKeyEscape = e => {
-//     if (e.code === 'Escape') {
-//       this.props.onClose();
-//     }
-//   };
-
-//   onOverlayClick = e => {
-//     if (e.target === e.currentTarget) {
-//       this.props.onClose();
-//     }
-//   };
-
-//   render() {
-//     const { largeImageURL, tags } = this.props.imageSelected;
-
-//     return (
-//       <div className={s.Overlay} onClick={this.onOverlayClick}>
-//         <div className={s.Modal}>
-//           <img src={largeImageURL} alt={tags} />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   imageSelected: PropTypes.shape({

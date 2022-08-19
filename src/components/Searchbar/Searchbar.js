@@ -12,7 +12,7 @@ export default function Searchbar({ onSubmit }) {
     if (searchingImg.trim() !== '') {
       onSubmit(searchingImg);
     }
-    // setSearchingImg({ searchingImg: '' });
+    setSearchingImg('');
   };
 
   const handleInputChange = e => {
@@ -37,49 +37,7 @@ export default function Searchbar({ onSubmit }) {
       </form>
     </header>
   );
-
 }
-
-// class OldSearchbar extends Component {
-//   state = {
-//     searchingImg: '',
-//   };
-
-//   handleSubmit = e => {
-//     e.preventDefault();
-//     if (this.state.searchingImg.trim() !== '') {
-//       this.props.onSubmit(this.state.searchingImg);
-//     }
-//     this.setState({ searchingImg: '' });
-//   };
-
-//   handleInputChange = e => {
-//     this.setState({
-//       searchingImg: e.target.value.toLowerCase(),
-//     });
-//   };
-
-//   render() {
-//     return (
-//       <header className={s.Searchbar}>
-//         <form className={s.SearchForm} onSubmit={this.handleSubmit}>
-//           <button type="submit" className={s.SearchForm_button}>
-//             <span className={s.SearchForm_button_label}>Search</span>
-//           </button>
-
-//           <input
-//             className={s.SearchForm_input}
-//             type="text"
-//             autoComplete="off"
-//             autoFocus
-//             placeholder="Search images and photos"
-//             onChange={this.handleInputChange}
-//           />
-//         </form>
-//       </header>
-//     );
-//   }
-// }
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
